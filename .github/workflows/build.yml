@@ -10,7 +10,8 @@ jobs:
       - name: Unzip
         run: unzip -o chaseke.zip -x '.github/*'
       - name: Version
-        run: sed -i '' "s/^Version:.*/Version: 0.1.${{ github.run_number }}/" control
+        run: |
+          sed -i '' "s/^Version:.*/Version: 0.1.${{ github.run_number }}/" control
       - name: Deps
         run: brew install ldid dpkg
       - name: Theos
