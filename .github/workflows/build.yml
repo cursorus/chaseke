@@ -12,7 +12,9 @@ jobs:
       - name: Theos
         run: |
           git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          rm -rf $HOME/theos/sdks
           git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
+
       - name: Build
         run: |
           export THEOS=$HOME/theos
