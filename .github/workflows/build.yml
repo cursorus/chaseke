@@ -1,0 +1,23 @@
+name: Build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip
+        run: unzip -o chaseke.zip -x '.github/*'
+      - name: Deps
+        run: brew install ldid dpkg
+      - name: Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
+      - name: Build
+        run: |
+          export THEOS=$HOME/theos
+          make package FINALPACKAGE=1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Chaseke-deb
+          path: packages/*.deb
