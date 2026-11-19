@@ -12,6 +12,10 @@ jobs:
       - name: Version
         run: |
           sed -i '' "s/^Version:.*/Version: 0.1.${{ github.run_number }}/" control
+      - name: Font
+        run: |
+          mkdir -p layout/Library/Chaseke
+          cp tall.ttf layout/Library/Chaseke/
       - name: Deps
         run: brew install ldid dpkg
       - name: Theos
